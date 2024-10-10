@@ -1,8 +1,7 @@
+# management/commands/load_data.py
 from django.core.management.base import BaseCommand
 from main.models import Product, Category
 import json
-import os
-
 
 class Command(BaseCommand):
     help = 'Loads product and category data from JSON files'
@@ -19,16 +18,11 @@ class Command(BaseCommand):
                 photo = cat_data.get('photo', None)
 
                 # Создание или получение категории
-                category, created = Category.objects.get_or_create(
+                Category.objects.get_or_create(
                     category_name_ru=category_name_ru,
                     category_name_en=category_name_en,
                     defaults={'photo': photo}
                 )
-
-                if created:
-                    self.stdout.write(self.style.SUCCESS(f"Category '{category_name_en}' created successfully"))
-                else:
-                    self.stdout.write(self.style.SUCCESS(f"Category '{category_name_en}' already exists"))
 
             except KeyError as e:
                 self.stdout.write(self.style.ERROR(f"Missing key: {e} in item: {cat_data}"))
@@ -42,21 +36,27 @@ class Command(BaseCommand):
                 # Получаем категорию по ID
                 category = Category.objects.get(id=prod_data.pop('category_id'))
 
-                # Удаляем ненужные поля, если они есть
+                # Удаляем поле product_id и описания, если они есть
                 prod_data.pop('product_id', None)
-                prod_data.pop('description_ru', None)  # Удаляем поле description_ru
-                prod_data.pop('description_en', None)  # Удаляем поле description_en
+                prod_data.pop('description_ru', None)  # Удаляем description_ru
+                prod_data.pop('description_en', None)  # Удаляем description_en
 
-                # Оставляем цену как строку
-                price = prod_data.pop('price', '')
+                # Преобразуем цену в строку
+                price_str = prod_data.pop('price').replace(' ', '')
+                price = price_str  # оставляем как текст
 
-                # Обновляем путь к фотографии
-                photo_filename = prod_data.get('photo')
-                if photo_filename:
-                    prod_data['photo'] = os.path.join('products/', photo_filename)
+                # Извлекаем имя файла для фото
+                photo = prod_data.pop('photo', None)
+                if photo:
+                    photo = f"{photo}"
 
                 # Создаем продукт
-                Product.objects.create(category=category, price=price, **prod_data)
+                Product.objects.create(
+                    category=category,
+                    price=price,
+                    photo=photo,
+                    **prod_data
+                )
 
                 self.stdout.write(self.style.SUCCESS(f"Product '{prod_data['name_en']}' created successfully"))
 
