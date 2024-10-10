@@ -1,0 +1,57 @@
+[
+  {
+    "category_id": 1,
+    "category_name_ru": "Салаты",
+    "category_name_en": "Salads",
+    "photo":"13.07.24 Yalpiz food 0209.jpg"
+  },
+  {
+    "category_id": 2,
+    "category_name_ru": "Супы",
+    "category_name_en": "Soups",
+    "photo":"13.07.24 Yalpiz food 0227.jpg"
+
+  },
+  {
+    "category_id": 3,
+    "category_name_ru": "Вторые Блюда",
+    "category_name_en": "Main Courses",
+    "photo":"13.07.24 Yalpiz food 0327.jpg"
+  },
+  {
+    "category_id": 4,
+    "category_name_ru": "Миллий",
+    "category_name_en": "Milliy",
+    "photo":"osh.png"
+  },
+  {
+    "category_id": 5,
+    "category_name_ru": "Мучное",
+    "category_name_en": "Pastry",
+    "photo":"13.07.24 Yalpiz food 0461.jpg"
+  },
+  {
+    "category_id": 6,
+    "category_name_ru": "Блюда на Компанию",
+    "category_name_en": "Dishes for Groups",
+    "photo":"13.07.24 Yalpiz food 0404.jpg"
+  },
+  {
+    "category_id": 7,
+    "category_name_ru": "Десерт",
+    "category_name_en": "Desserts",
+    "photo":"13.07.24 Yalpiz food 0037.jpg"
+  },
+  {
+    "category_id": 8,
+    "category_name_ru": "Бар Меню",
+    "category_name_en": "Bar Menu",
+    "photo":"Yalpiz Bar.png"
+  },
+  {
+    "category_id": 9,
+    "category_name_ru": "Гарниры",
+    "category_name_en": "Side Dishes",
+    "photo":"Yapliz Garnir.jpg"
+  }
+]
