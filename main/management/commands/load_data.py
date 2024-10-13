@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from main.models import Product, Category
 import json
 
+
 class Command(BaseCommand):
     help = 'Loads product and category data from JSON files'
 
@@ -15,15 +16,13 @@ class Command(BaseCommand):
             try:
                 category_name_ru = cat_data['category_name_ru']
                 category_name_en = cat_data['category_name_en']
-                photo = cat_data.get('photo', None)
+                photo = cat_data.get('photo')
 
-                # Создание или получение категории
                 Category.objects.get_or_create(
                     category_name_ru=category_name_ru,
                     category_name_en=category_name_en,
                     defaults={'photo': photo}
                 )
-
             except KeyError as e:
                 self.stdout.write(self.style.ERROR(f"Missing key: {e} in item: {cat_data}"))
 
@@ -33,35 +32,40 @@ class Command(BaseCommand):
 
         for prod_data in products:
             try:
-                # Получаем категорию по ID
-                category = Category.objects.get(id=prod_data.pop('category_id'))
+                # Проверка наличия category_id
+                category_id = prod_data.get('category_id')
+                if category_id is None:
+                    self.stdout.write(self.style.ERROR(f"Missing 'category_id' in product: {prod_data}"))
+                    continue
 
-                # Удаляем поле product_id и описания, если они есть
-                prod_data.pop('product_id', None)
-                prod_data.pop('description_ru', None)  # Удаляем description_ru
-                prod_data.pop('description_en', None)  # Удаляем description_en
+                # Получаем категорию
+                category = Category.objects.get(id=category_id)
 
-                # Преобразуем цену в строку
-                price_str = prod_data.pop('price').replace(' ', '')
-                price = price_str  # оставляем как текст
+                # Преобразуем цену (если не пустая)
+                price_str = prod_data.get('price', '').replace(' ', '') or None
 
-                # Извлекаем имя файла для фото
-                photo = prod_data.pop('photo', None)
-                if photo:
-                    photo = f"{photo}"
+                # Удаляем лишние поля
+                product_fields = {k: v for k, v in prod_data.items()
+                                  if k not in ['category_id', 'product_id', 'price', 'photo', 'description_ru', 'description_en']}
+
+                photo = prod_data.get('photo')
+                description_ru = prod_data.get('description_ru')
+                description_en = prod_data.get('description_en')
 
                 # Создаем продукт
                 Product.objects.create(
                     category=category,
-                    price=price,
+                    price=price_str,
                     photo=photo,
-                    **prod_data
+                    description_ru=description_ru,
+                    description_en=description_en,
+                    **product_fields  # Передаем остальные поля
                 )
 
-                self.stdout.write(self.style.SUCCESS(f"Product '{prod_data['name_en']}' created successfully"))
+                self.stdout.write(self.style.SUCCESS(f"Product '{prod_data.get('name_en', 'Unnamed')}' created successfully"))
 
             except Category.DoesNotExist:
-                self.stdout.write(self.style.ERROR(f"Category with id {prod_data['category_id']} does not exist"))
+                self.stdout.write(self.style.ERROR(f"Category with id {category_id} does not exist"))
             except ValueError as e:
                 self.stdout.write(self.style.ERROR(f"Invalid data format in product: {prod_data}. Error: {e}"))
 
