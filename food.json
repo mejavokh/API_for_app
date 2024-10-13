@@ -173,6 +173,8 @@
         "category_id": 1,
         "name_ru": "Винегрет",
         "name_en": "Vinaigrette",
+        "description_ru": "Зел.горошек, свекла, картофель, капуста квашенная, морковь, огурцы бочковые",
+        "description_en": "Green peas, beets, potatoes, sauerkraut, carrots, barrel cucumbers",
         "price": "30 000",
         "photo": "13.07.24 Yalpiz food 0104.jpg"
     },
@@ -253,6 +255,8 @@
         "category_id": 1,
         "name_ru": "Донер Салат",
         "name_en": "Doner Salad",
+        "description_ru": "Микс салат, черри, огурцы, редиска, капуста красная, говядина, соус Терияки",
+        "description_en": "Mix salad, cherry tomatoes, cucumbers, radishes, red cabbage, beef, Teriyaki sauce",
         "price": "52 000",
         "photo": "13.07.24 Yalpiz food 0123.jpg"
     },
@@ -579,6 +583,8 @@
         "category_id": 1,
         "name_ru": "Чабан",
         "name_en": "Chaban",
+        "description_ru": "Огурцы, помидоры, лук красный, олив, масло, петрушка, лимон",
+        "description_en": "Cucumbers, tomatoes, red onion, olive, oil, parsley, lemon",
         "price": "34 000",
         "photo": "13.07.24 Yalpiz food 0053.jpg"
     },
@@ -587,6 +593,8 @@
         "category_id": 1,
         "name_ru": "Салат Армянский",
         "name_en": "Armenian Salad",
+        "description_ru": "Бон-филе, огурцы, брынза, кукуруза, зелень, специальный соус",
+        "description_en": "Bon fillet, cucumbers, feta cheese, corn, greens, special sauce",
         "price": "52 000",
         "photo": "13.07.24 Yalpiz food 0060.jpg"
     },
@@ -603,6 +611,8 @@
         "category_id": 1,
         "name_ru": "Салат Ялпиз",
         "name_en": "Yalpiz Salad",
+        "description_ru": "Шпинет, гов.язык, маринов.грибочки, черри, огурцы бочковые, лук зеленый",
+        "description_en": "Spinet, beef tongue, pickle mushrooms, cherry tomatoes, cucumbers, green onions",
         "price": "52 000",
         "photo": "13.07.24 Yalpiz food 0070.jpg"
     },
@@ -611,6 +621,8 @@
         "category_id": 1,
         "name_ru": "Оливье",
         "name_en": "Olivier Salad",
+        "description_ru": "Говядина, морковь, картофель, зел.горошек, яйцо, бочковые огурцы, майонез",
+        "description_en": "Beef, carrots, potatoes, green peas, egg, barrel cucumbers, mayonnaise",
         "price": "39 000",
         "photo": "13.07.24 Yalpiz food 0073.jpg"
     },
@@ -619,6 +631,8 @@
         "category_id": 1,
         "name_ru": "Салат из Рукколы",
         "name_en": "Arugula Salad",
+        "description_ru": "Миск салат, черри, огурцы, болгарский перец, моцарелла, грецкие орехи, соус Нашараб",
+        "description_en": "Misk salad, cherry tomatoes, cucumbers, bell peppers, mozzarella, walnuts, Nasharab sauce",
         "price": "52 000",
         "photo": "13.07.24 Yalpiz food 0081.jpg"
     },
@@ -627,6 +641,8 @@
         "category_id": 1,
         "name_ru": "Французский",
         "name_en": "French Salad",
+        "description_ru": "Говядина, картофель, спекла, капуста, яблоко, огурцы, майонез, грецкие орехи",
+        "description_en": "Beef, potatoes, speckle, cabbage, apple, cucumbers, mayonnaise, walnutsspeckle",
         "price": "42 000",
         "photo": "13.07.24 Yalpiz food 0085.jpg"
     },
@@ -643,6 +659,8 @@
         "category_id": 1,
         "name_ru": "Греческий",
         "name_en": "Greek Salad",
+        "description_ru": "Помидоры, огурцы, оливки, маслины, болгарский перец, фетакса, олив, масло, лимонный сок",
+        "description_en": "Tomatoes, cucumbers, olives, olives, bell peppers, fetaxa, olives, oil, lemon juice",
         "price": "48 000",
         "photo": "13.07.24 Yalpiz food 0110.jpg"
     },
@@ -651,6 +669,8 @@
         "category_id": 1,
         "name_ru": "Баклажановый Салат",
         "name_en": "Eggplant Salad",
+        "description_ru": "Баклажан, помидоры, лук красный, кунжут, свит силли",
+        "description_en": "Eggplant, tomatoes, red onion, sesame, sweet chilli",
         "price": "45 000",
         "photo": "13.07.24 Yalpiz food 0115.jpg"
     },
@@ -675,6 +695,8 @@
         "category_id": 1,
         "name_ru": "Баклажан Свит Чилли",
         "name_en": "Sweet Chili Eggplant",
+        "description_ru": "Помидоры, огурцы, микс салат, баклажаны, лук красный, гранат, соус свит чилли",
+        "description_en": "Tomatoes, cucumbers, mixed salad, eggplant, red onion, pomegranate, sweet chilli sauce",
         "price": "52 000",
         "photo": "13.07.24 Yalpiz food 0129.jpg"
     },
@@ -683,6 +705,8 @@
         "category_id": 1,
         "name_ru": "Мужской Каприз",
         "name_en": "Male Caprice",
+        "description_ru": "Индейка, казы, коп.колбаса, яйцо, кур.филе",
+        "description_en": "Turkey, kazy, cop.sausage, egg, chicken fillet",
         "price": "49 000",
         "photo": "13.07.24 Yalpiz food 0135.jpg"
     },
@@ -691,6 +715,8 @@
         "category_id": 1,
         "name_ru": "Цезарь",
         "name_en": "Caesar",
+        "description_ru": "Айсберг, черри, кур.филе, пармезан, соус Цезарь, крутоны",
+        "description_en": "Iceberg, cherry tomatoes, chicken fillet, parmesan, Caesar sauce, croutons",
         "price": "52 000",
         "photo": "13.07.24 Yalpiz food 0136.jpg"
     },
@@ -1151,6 +1177,8 @@
         "category_id": 1,
         "name_ru": "Песто",
         "name_en": "Pesto",
+        "description_ru": "Моцарелла, черри, микс салата, соус песто, сыр пармезан, грецкие орехи",
+        "description_en": "Mozzarella, cherry tomatoes, lettuce mix, pesto sauce, Parmesan cheese, walnuts",
         "price": "45 000",
         "photo": "sous-pesto.jpg"
     },
