@@ -44,8 +44,10 @@ class Command(BaseCommand):
 
                 # Удаляем ненужные поля, если они есть
                 prod_data.pop('product_id', None)
-                prod_data.pop('description_ru', None)  # Удаляем поле description_ru
-                prod_data.pop('description_en', None)  # Удаляем поле description_en
+
+                # Извлекаем описание с дефолтным значением
+                description_ru = prod_data.pop('description_ru', '')
+                description_en = prod_data.pop('description_en', '')
 
                 # Оставляем цену как строку
                 price = prod_data.pop('price', '')
@@ -55,10 +57,17 @@ class Command(BaseCommand):
                 if photo_filename:
                     prod_data['photo'] = os.path.join('', photo_filename)
 
-                # Создаем продукт
-                Product.objects.create(category=category, price=price, **prod_data)
+                # Создаем продукт, избегая дублирования полей
+                Product.objects.create(
+                    category=category,
+                    price=price,
+                    description_ru=description_ru,
+                    description_en=description_en,
+                    **prod_data
+                )
 
-                self.stdout.write(self.style.SUCCESS(f"Product '{prod_data['name_en']}' created successfully"))
+                self.stdout.write(
+                    self.style.SUCCESS(f"Product '{prod_data.get('name_en', 'Unnamed')}' created successfully"))
 
             except Category.DoesNotExist:
                 self.stdout.write(self.style.ERROR(f"Category with id {prod_data['category_id']} does not exist"))
