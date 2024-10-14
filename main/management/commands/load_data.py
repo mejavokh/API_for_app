@@ -1,7 +1,7 @@
-# management/commands/load_data.py
 from django.core.management.base import BaseCommand
 from main.models import Product, Category
 import json
+import os
 
 
 class Command(BaseCommand):
@@ -16,13 +16,20 @@ class Command(BaseCommand):
             try:
                 category_name_ru = cat_data['category_name_ru']
                 category_name_en = cat_data['category_name_en']
-                photo = cat_data.get('photo')
+                photo = cat_data.get('photo', None)
 
-                Category.objects.get_or_create(
+                # Создание или получение категории
+                category, created = Category.objects.get_or_create(
                     category_name_ru=category_name_ru,
                     category_name_en=category_name_en,
                     defaults={'photo': photo}
                 )
+
+                if created:
+                    self.stdout.write(self.style.SUCCESS(f"Category '{category_name_en}' created successfully"))
+                else:
+                    self.stdout.write(self.style.SUCCESS(f"Category '{category_name_en}' already exists"))
+
             except KeyError as e:
                 self.stdout.write(self.style.ERROR(f"Missing key: {e} in item: {cat_data}"))
 
@@ -32,40 +39,29 @@ class Command(BaseCommand):
 
         for prod_data in products:
             try:
-                # Проверка наличия category_id
-                category_id = prod_data.get('category_id')
-                if category_id is None:
-                    self.stdout.write(self.style.ERROR(f"Missing 'category_id' in product: {prod_data}"))
-                    continue
+                # Получаем категорию по ID
+                category = Category.objects.get(id=prod_data.pop('category_id'))
 
-                # Получаем категорию
-                category = Category.objects.get(id=category_id)
+                # Удаляем ненужные поля, если они есть
+                prod_data.pop('product_id', None)
+                prod_data.pop('description_ru', None)  # Удаляем поле description_ru
+                prod_data.pop('description_en', None)  # Удаляем поле description_en
 
-                # Преобразуем цену (если не пустая)
-                price_str = prod_data.get('price', '').replace(' ', '') or None
+                # Оставляем цену как строку
+                price = prod_data.pop('price', '')
 
-                # Удаляем лишние поля
-                product_fields = {k: v for k, v in prod_data.items()
-                                  if k not in ['category_id', 'product_id', 'price', 'photo', 'description_ru', 'description_en']}
-
-                photo = prod_data.get('photo')
-                description_ru = prod_data.get('description_ru')
-                description_en = prod_data.get('description_en')
+                # Обновляем путь к фотографии
+                photo_filename = prod_data.get('photo')
+                if photo_filename:
+                    prod_data['photo'] = os.path.join('', photo_filename)
 
                 # Создаем продукт
-                Product.objects.create(
-                    category=category,
-                    price=price_str,
-                    photo=photo,
-                    description_ru=description_ru,
-                    description_en=description_en,
-                    **product_fields  # Передаем остальные поля
-                )
+                Product.objects.create(category=category, price=price, **prod_data)
 
-                self.stdout.write(self.style.SUCCESS(f"Product '{prod_data.get('name_en', 'Unnamed')}' created successfully"))
+                self.stdout.write(self.style.SUCCESS(f"Product '{prod_data['name_en']}' created successfully"))
 
             except Category.DoesNotExist:
-                self.stdout.write(self.style.ERROR(f"Category with id {category_id} does not exist"))
+                self.stdout.write(self.style.ERROR(f"Category with id {prod_data['category_id']} does not exist"))
             except ValueError as e:
                 self.stdout.write(self.style.ERROR(f"Invalid data format in product: {prod_data}. Error: {e}"))
 
